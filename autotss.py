@@ -223,7 +223,7 @@ class autotss:
 	def checkBetaBuildSigning(self, firmware):
 		""" Call tsschecker to check signing status of a beta OTA firmware. Update database
 		with results. """
-		if self.scriptPath['cache'] == 1:
+		if self.scriptPath['cache'] == '1':
 			scriptArguments = [self.scriptPath['path'],
 						'-d', firmware['deviceID'],
 						'-m', firmware['cachepath'] + '/BuildManifest.plist',
@@ -351,7 +351,7 @@ class autotss:
 				self.saveBlobs(device, firmware['buildid'], firmware['version'])
 
 			""" Check for beta blobs if beta flag set for device """
-			if device['beta'] == 1:
+			if device['beta'] == '1':
 				print("Beta enabled for device {}.".format(device['deviceECID']))
 				
 				for firmware in self.database['beta'].find(deviceID=device['deviceID']):
@@ -517,14 +517,15 @@ class autotss:
 		 Also verifies that these files exist. """
 		 
 		""" Added routine to capture argument to force refresh of beta signing database.
-		 Now returns a dictionary object with path and betarefresh keys. """
+		 Now returns a dictionary object with path and betarefresh keys. Also added
+		 cache, resetcache, and verbose options. """
 
 		scriptPath = {}
 
 		argParser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
 		argParser.add_argument("-p", "--path", help='Supply the path to your tsschecker binary.\nExample: -p /Users/codsane/tsschecker/tsschecker_macos', required=False, default='')
 		argParser.add_argument("-b", "--betarefresh", action='store_const', const=1, help='Force a refresh of the beta firmware signing database.', required=False, default='0')
-		argParser.add_argument("-c", "--cache", action='store_const', const=1, help='Use the buildmanifest cache to save time.', required=False, default='1')
+		argParser.add_argument("-c", "--cache", action='store_const', const=0, help='Turn off buildmanifest caching.', required=False, default='1')
 		argParser.add_argument("-r", "--resetcache", action='store_const', const=1, help='Refresh the buildmanifest cache.', required=False, default='0')
 		argParser.add_argument("-v", "--verbose", action='store_const', const=1, help='Verbose output.', required=False, default='0')
 		argument = argParser.parse_args()
