@@ -1,5 +1,5 @@
 # autotss
-Automatically save shsh2 blobs for signed iOS firmwares using [tsschecker](https://github.com/tihmstar/tsschecker) and the [IPSW.me API](https://ipsw.me/api/ios/docs/2.1/Firmware)
+Automatically save shsh2 blobs for signed iOS firmwares using [tsschecker](https://github.com/tihmstar/tsschecker) and the [IPSW.me API](https://ipsw.me/api/ios/docs/2.1/Firmware). Now includes support for beta OTA releases.
 
 ## Motivation
 >tsschecker is not only meant to be used to check signing status, but also to explore Apple's tss servers. By using all of its customization possibilities, __you might discover a combination of devices and iOS versions that is now getting signed but wasn't getting signed before.__ -[tihmstar (author of tsschecker)](https://github.com/tihmstar/tsschecker/blob/master/README.md#features)
@@ -20,12 +20,23 @@ Automatically save shsh2 blobs for signed iOS firmwares using [tsschecker](https
 3. Run `python3 autotss.py`
 4. (Optional) Schedule autotss to run frequently to save blobs for firmwares as they are signed
 
+## Commandline options
+Run python3 autotss.py --help to see all options.
+-p: Specify path to tsschecker
+-b: Resets signing status of beta firmwares. This will force autotss to check the signing status for all beta firmwares rather than
+    using the previous saved status.
+-c: Use cached BuildManifest.plist files for beta firmwares. This is enabled by default, and downloads the BuildManifest files which
+    significantly speeds up tsschecker.
+-r: Resets cache and forces autotss to re-download all beta firmware BuildManifest.plist files.
+-v: Verbose output.
+
 ## Config File
 Your devices.ini file should follow the format below. Specifying a board config is optional but may be required for your device model.
 ```
 [Device Name]
 identifier = iPhone9,4
 ecid = 1438617935153
+beta = 1
 ```
 
 Example:
@@ -34,6 +45,7 @@ Example:
 identifier = iPhone8,4
 ecid = A1032047B013A
 boardconfig = n69uap
+beta = 0
 ```
 
 ## Known Issues
@@ -51,4 +63,4 @@ boardconfig = n69uap
 * [tsschecker](https://github.com/tihmstar/tsschecker)
 
 ## To Do
-- [ ] Add support for Beta/OTA firmwares
+- [X] Add support for Beta/OTA firmwares
