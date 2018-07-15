@@ -22,6 +22,7 @@ Automatically save shsh2 blobs for signed iOS firmwares using [tsschecker](https
 
 ## Commandline options
 Run python3 autotss.py --help to see all options.
+```
 -p: Specify path to tsschecker
 -b: Resets signing status of beta firmwares. This will force autotss to check the signing status for all beta firmwares rather than
     using the previous saved status.
@@ -29,6 +30,7 @@ Run python3 autotss.py --help to see all options.
     significantly speeds up tsschecker.
 -r: Resets cache and forces autotss to re-download all beta firmware BuildManifest.plist files.
 -v: Verbose output.
+```
 
 ## Config File
 Your devices.ini file should follow the format below. Specifying a board config is optional but may be required for your device model.
