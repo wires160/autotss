@@ -12,7 +12,6 @@ import struct
 import tempfile
 import fcntl
 import zipfile as zip
-import pdb
 
 class autotss:
 
